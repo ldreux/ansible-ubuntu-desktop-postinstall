@@ -1,0 +1,22 @@
+---
+  - name: Download the nvm(node version manager) install script
+    get_url: url=https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh dest=/tmp/install.sh
+
+  - name: Install dependencies
+    apt: pkg={{ item }} update_cache=yes cache_valid_time=3600
+    with_items:
+      - git
+      - curl
+      - build-essential
+      - libssl-dev
+    become: yes
+    become_user: root
+
+  - name: Execute the nvm install script
+    shell: bash install.sh chdir=/tmp executable=/bin/bash
+    become: "{{user}}"
+
+  - name: Install the specified node version using the nvm command and set it as default
+    shell: /bin/bash -c "source /home/{{user}}/.nvm/nvm.sh && nvm install {{ node_version }} && nvm run {{node_version}} --version && nvm alias default {{node_version}}"
+           creates=/home/{{user}}/.nvm/versions/node/v{{ node_version }}
+    become: "{{user}}"
