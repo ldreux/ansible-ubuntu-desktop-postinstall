@@ -1,0 +1,19 @@
+---
+  - name: Add Synapse repository
+    apt_repository: repo=ppa:synapse-core/testing
+
+  - name: Install Synapse
+    apt: name=synapse state=installed
+
+  - name: Autostart Synapse
+    file:
+      src: /usr/share/applications/synapse.desktop
+      dest: /home/{{user}}/.config/autostart/synapse.desktop
+      state: link
+      owner: "{{user}}"
+
+  - name: Installation Synapse configuration
+    unarchive:
+      src: templates/synapse-conf.tar.bz2
+      dest: /home/{{user}}
+      owner: "{{user}}"

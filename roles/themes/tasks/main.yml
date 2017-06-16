@@ -1,0 +1,37 @@
+---
+  - name: Add Adapta repository
+    apt_repository: repo=ppa:tista/adapta
+
+  - name: Install Adapta
+    apt: name=adapta-gtk-theme state=installed
+
+  - name: Add Papirus repository
+    apt_repository: repo=ppa:papirus/papirus
+
+  - name: Install papirus icon theme
+    apt: name=papirus-icon-theme state=installed
+
+  - name: Add Plank repository
+    apt_repository: repo=ppa:docky-core/stable
+
+  - name: Autostart Guake
+    file:
+      src: /usr/share/applications/plank.desktop
+      dest: /home/{{user}}/.config/autostart/plank.desktop
+      state: link
+      owner: "{{user}}"
+
+  - name: Install Plank
+    apt: name=plank state=installed
+
+  - name: Set Adapta Gtk theme
+    command: gsettings set org.gnome.desktop.interface gtk-theme "Adapta-Nokto"
+    become: "{{user}}"
+
+  - name: Set Adapta Window theme
+    command: gsettings set org.gnome.desktop.wm.preferences theme "Adapta-Nokto"
+    become: "{{user}}"
+
+  - name: Set Papirus icon theme
+    command: gsettings set org.gnome.desktop.interface icon-theme "Papirus-Dark"
+    become: "{{user}}"
