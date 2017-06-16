@@ -1,0 +1,20 @@
+---
+  - name: Create Temp directory
+    file:
+      path: /home/{{user}}/Temp
+      state: directory
+      mode: 0755
+      owner: "{{user}}"
+
+  - name: Clone firefox arc theme
+    git: repo=https://github.com/horst3180/arc-firefox-theme dest=/home/{{user}}/Temp/arc-firefox-theme
+
+  - name: Build firefox arc theme
+    command: /home/{{user}}/Temp/arc-firefox-theme/autogen.sh --prefix=/usr
+    args:
+      chdir: /home/{{user}}/Temp/arc-firefox-theme/
+
+  - name: Build firefox arc theme
+    make:
+      chdir: /home/{{user}}/Temp/arc-firefox-theme
+      target: install

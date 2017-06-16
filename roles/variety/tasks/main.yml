@@ -1,0 +1,13 @@
+---
+  - name: Add Variety repository
+    apt_repository: repo=ppa:peterlevi/ppa
+
+  - name: Install Variety
+    apt: name=variety state=installed
+
+  - name: Autostart Variety
+    file:
+      src: /usr/share/applications/variety.desktop
+      dest: /home/{{user}}/.config/autostart/variety.desktop
+      state: link
+      owner: "{{user}}"

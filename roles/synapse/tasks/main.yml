@@ -14,6 +14,6 @@
 
   - name: Installation Synapse configuration
     unarchive:
-      src: templates/synapse-conf.tar.bz2
+      src: templates/synapse-config.tar.bz2
       dest: /home/{{user}}
       owner: "{{user}}"

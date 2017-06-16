@@ -10,3 +10,9 @@
    - htop
    - unity-tweak-tool
    - shutter
+   - compizconfig-settings-manager
+   - ubuntu-restricted-extras
+   - build-essential
+   - chromium-browser
+   - autoconf
+   - automake

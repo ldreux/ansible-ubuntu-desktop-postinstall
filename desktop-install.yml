@@ -7,9 +7,11 @@
   - vars/main.yml
   roles:
   - application-base
-  - ohmyzsh
-  - mrlesmithjr.oracle-java8
-  - guake
-  - fonts
-  - themes
-  - synapse
+#  - ohmyzsh
+#  - mrlesmithjr.oracle-java8
+#  - guake
+#  - fonts
+#  - themes
+#  - synapse
+#  - variety
+  - firefox-arc-theme
