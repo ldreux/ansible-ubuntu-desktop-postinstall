@@ -1,0 +1,12 @@
+---
+
+- hosts: all
+  become: yes
+  become_user: root
+  vars_files:
+  - vars/main.yml
+  roles:
+  - application-base
+  - ohmyzsh
+  - mrlesmithjr.oracle-java8
+  - guake

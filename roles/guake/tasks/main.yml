@@ -1,0 +1,20 @@
+---
+  - name: Create autostart folder
+    file:
+      path: /home/{{user}}/.config/autostart/
+      state: directory
+      mode: 0755
+      owner: "{{user}}"
+
+  - name: Autostart Guake
+    file:
+      src: /usr/share/applications/guake.desktop
+      dest: /home/{{user}}/.config/autostart/guake.desktop
+      state: link
+      owner: "{{user}}"
+
+  - name: Installation Guake configuration
+    unarchive:
+      src: templates/guake-conf.tar.bz2
+      dest: /home/{{user}}
+      owner: "{{user}}"

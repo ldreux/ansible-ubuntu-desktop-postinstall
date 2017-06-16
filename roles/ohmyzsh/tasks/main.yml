@@ -1,0 +1,37 @@
+---
+  - name: Install git and zsh
+    apt: name={{item}}
+    with_items:
+     - git
+     - zsh
+
+  - name: Clone oh-my-zsh repo
+    git: repo=https://github.com/robbyrussell/oh-my-zsh.git dest=/home/{{zsh_user}}/.oh-my-zsh
+
+  - name: Create conf folder in home directory
+    file: path=/home/{{zsh_user}}/conf/ state=directory owner={{zsh_user}}
+
+  - name: deploy .zshrc
+    template: src=zshrc.in dest=/home/{{zsh_user}}/conf/zshrc owner={{zsh_user}}
+
+  - name: remove standard zshrc
+    file: path=/home/{{zsh_user}}/.zshrc state=absent
+
+  - name: symlink zshrc
+    file: path=/home/{{zsh_user}}/.zshrc src=/home/{{zsh_user}}/conf/zshrc state=link owner={{zsh_user}}
+
+  - name: Set zsh as default shell
+    user: name={{zsh_user}} shell=/bin/zsh
+
+  - name: Create custom theme folder
+    file: path=/home/{{zsh_user}}/.oh-my-zsh/custom/themes state=directory owner={{zsh_user}}
+
+  - name: Install xxf theme
+    template: src=xxf.zsh-theme dest=/home/{{zsh_user}}/.oh-my-zsh/custom/themes/ owner={{zsh_user}} group={{zsh_user}} mode=0644
+
+  - name: Set default theme to xxf
+    replace:
+      name: /home/{{zsh_user}}/.zshrc
+      regexp: 'ZSH_THEME=".*"'
+      replace: 'ZSH_THEME=xxf'
+      backup: yes

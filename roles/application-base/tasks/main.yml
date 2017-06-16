@@ -1,0 +1,12 @@
+---
+ - name: Install list of packages
+   apt: name={{item}} state=installed
+   with_items:
+   - openssh-server
+   - mc
+   - git
+   - zsh
+   - vim
+   - htop
+   - unity-tweak-tool
+   - guake
