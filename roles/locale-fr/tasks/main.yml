@@ -1,0 +1,7 @@
+---
+ - name: Install list of packages
+   apt: name={{item}} state=installed
+   with_items:
+   - language-pack-fr
+   - language-pack-fr-base
+   - manpages-fr

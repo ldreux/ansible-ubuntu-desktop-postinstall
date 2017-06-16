@@ -1,0 +1,7 @@
+---
+ - name: Install Virtualbox
+   apt: name={{item}} state=installed
+   with_items:
+   - virtualbox
+   - virtualbox-qt
+   - virtualbox-dkms

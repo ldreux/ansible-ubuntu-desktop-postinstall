@@ -20,3 +20,11 @@
     shell: /bin/bash -c "source /home/{{user}}/.nvm/nvm.sh && nvm install {{ node_version }} && nvm run {{node_version}} --version && nvm alias default {{node_version}}"
            creates=/home/{{user}}/.nvm/versions/node/v{{ node_version }}
     become: "{{user}}"
+
+  - name: Install Grunt,Gulp,Docbook & co
+    shell: npm install -g {{item}}
+    with_items:
+    - gitbook-cli
+    - gulp
+    - grunt
+    become: "{{user}}"

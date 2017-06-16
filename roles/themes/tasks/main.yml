@@ -21,7 +21,7 @@
       state: link
       owner: "{{user}}"
 
-  - name: Install Plank
+  - name: Install Plank"
     apt: name=plank state=installed
 
   - name: Set Adapta Gtk theme
@@ -34,4 +34,8 @@
 
   - name: Set Papirus icon theme
     command: gsettings set org.gnome.desktop.interface icon-theme "Papirus-Dark"
+    become: "{{user}}"
+
+  - name: Hide unity panel
+    command: gsettings set org.compiz.unityshell:/org/compiz/profiles/unity/plugins/unityshell/ launcher-hide-mode 1
     become: "{{user}}"

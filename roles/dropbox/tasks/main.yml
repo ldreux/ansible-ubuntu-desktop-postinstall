@@ -1,0 +1,18 @@
+---
+
+- name: Check if dropbox is installed
+  command: dpkg-query -W dropbox
+  register: dropbox_check_deb
+  failed_when: dropbox_check_deb.rc > 1
+  changed_when: dropbox_check_deb.rc == 1
+
+- name: Download dropbox
+  get_url:
+    url=https://www.dropbox.com/download?dl=packages/debian/dropbox_2015.10.28_amd64.deb
+    dest="/home/{{user}}/dropbox.deb"
+  when: dropbox_check_deb.rc == 1
+
+- name: Install dropbox
+  apt: deb="/home/{{user}}/dropbox.deb"
+  sudo: true
+  when: dropbox_check_deb.rc == 1

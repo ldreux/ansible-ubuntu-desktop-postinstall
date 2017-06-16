@@ -16,3 +16,4 @@
    - chromium-browser
    - autoconf
    - automake
+   - gufw
