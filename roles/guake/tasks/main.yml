@@ -1,4 +1,11 @@
 ---
+  - name: Add Guake repository
+    apt_repository:
+      repo: 'ppa:webupd8team/unstable'
+
+  - name: Install Guake
+    apt: name=guake state=installed
+
   - name: Create autostart folder
     file:
       path: /home/{{user}}/.config/autostart/

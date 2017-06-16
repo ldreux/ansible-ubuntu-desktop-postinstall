@@ -1,0 +1,16 @@
+---
+  - name: Create fonts folder
+    file:
+      path: /home/{{user}}/.local/share/fonts/
+      state: directory
+      mode: 0755
+      owner: "{{user}}"
+
+  - name: Installation fonts
+    unarchive:
+      src: templates/fonts.tar.bz2
+      dest: /home/{{user}}/.local/share/fonts/
+      owner: "{{user}}"
+
+  - name: Update fonts cache
+    command: fc-cache -v
