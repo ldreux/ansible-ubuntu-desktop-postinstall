@@ -1,0 +1,10 @@
+#!/usr/bin/env xdg-open
+
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+Exec=/home/{{user}}/Workspace/Software/Postman/Postman
+Name=Postman
+Comment=Supercharge your API workflow with Postman!
+Icon=/home/{{user}}/Workspace/Software/Postman/resources/app/assets/icon.png

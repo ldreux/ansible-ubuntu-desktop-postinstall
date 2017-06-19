@@ -49,13 +49,14 @@
     - nautilus
     - spotify
     - trash
+    - postman
 
   - name: Update Plank theme
     command: dconf write /net/launchpad/plank/docks/dock1/theme "'Transparent'"
     become: "{{user}}"
 
   - name: Update Plank items
-    command: dconf write /net/launchpad/plank/docks/dock1/dock-items  "['nautilus.dockitem', 'firefox.dockitem', 'spotify.dockitem', 'cpumonitor.dockitem', 'clock.dockitem', 'trash.dockitem']"
+    command: dconf write /net/launchpad/plank/docks/dock1/dock-items  "['nautilus.dockitem', 'firefox.dockitem', 'postman.dockitem', 'spotify.dockitem', 'cpumonitor.dockitem', 'clock.dockitem', 'trash.dockitem']"
     become: "{{user}}"
 
   - name: Remove default Plank items

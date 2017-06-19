@@ -1,0 +1,36 @@
+---
+
+- name: Check if postman is installed
+  stat:
+    path: "/home/{{user}}/Workspace/Software/Postman"
+  register: postman
+
+- name: Check if postman is download
+  stat:
+    path: "/tmp/postman.tar.gz"
+  register: postmanarchive
+
+- name: Create postman directory
+  file: path=/home/{{user}}/Workspace/Software/ state=directory owner={{user}}
+
+- name: Download postman
+  get_url:
+    url: https://dl.pstmn.io/download/latest/linux64
+    dest: "/tmp/postman.tar.gz"
+  when: postmanarchive.stat.exists is not defined or postmanarchive.stat.exists == False
+  become: "{{user}}"
+
+- name: Install postman
+  unarchive:
+    src: "/tmp/postman.tar.gz"
+    dest: "/home/{{user}}/Workspace/Software/"
+  when: postman.stat.exists is not defined or postman.stat.exists == False
+  become: "{{user}}"
+
+- name: Check application folder
+  file: path=/home/{{user}}/.local/share/applications state=directory owner={{user}}
+
+- name: Install postman shortcut
+  template:
+    src: postman.desktop
+    dest: /home/{{user}}/.local/share/applications
