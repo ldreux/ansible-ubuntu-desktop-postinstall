@@ -14,3 +14,19 @@
 
   - name: Update fonts cache
     command: fc-cache -v
+
+  - name: Update Plank items
+    command:  gsettings set org.gnome.desktop.interface document-font-name 'Fira Sans Medium 12'
+    become: "{{user}}"
+
+  - name: Update Plank items
+    command:  gsettings set org.gnome.desktop.interface font-name 'Fira Sans Medium 12'
+    become: "{{user}}"
+
+  - name: Update Plank items
+    command:  gsettings set org.gnome.desktop.interface monospace-font-name 'Fira Mono Medium 12'
+    become: "{{user}}"
+
+  - name: Update Plank items
+    command:  gsettings set org.gnome.nautilus.desktop font 'Fira Sans Medium 12'
+    become: "{{user}}"

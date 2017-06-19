@@ -43,6 +43,11 @@
     owner: "{{user}}"
     group: "{{user}}"
 
-
 - name: Install Plank items
   template: src=jetbrains-idea.dockitem dest=/home/{{user}}/.config/plank/dock1/launchers owner={{user}} group={{user}} mode=0644
+
+- name: Installation Idea configuration
+  unarchive:
+    src: templates/idea-conf.tar.bz2
+    dest: /home/{{user}}
+    owner: "{{user}}"
