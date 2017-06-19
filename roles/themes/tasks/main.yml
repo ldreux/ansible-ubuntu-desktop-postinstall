@@ -66,3 +66,11 @@
     - org.gnome.Calendar
     - org.gnome.Totem
     - rhythmbox
+
+  - name: Update date format
+    command: gsettings set com.canonical.indicator.datetime time-format 'custom'
+    become: "{{user}}"
+
+  - name: Update date format
+    command: gsettings set com.canonical.indicator.datetime custom-time-format "%a %-d %b %H:%M"
+    become: "{{user}}"
