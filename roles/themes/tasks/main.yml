@@ -21,7 +21,7 @@
       state: link
       owner: "{{user}}"
 
-  - name: Install Plank"
+  - name: Install Plank
     apt: name=plank state=installed
 
   - name: Set Adapta Gtk theme
@@ -39,3 +39,29 @@
   - name: Hide unity panel
     command: gsettings set org.compiz.unityshell:/org/compiz/profiles/unity/plugins/unityshell/ launcher-hide-mode 1
     become: "{{user}}"
+
+  - name: Create plank config
+    file: path=/home/{{user}}/.config/plank/dock1/launchers state=directory owner={{user}}
+
+  - name: Install Plank items
+    template: src={{item}}.dockitem dest=/home/{{user}}/.config/plank/dock1/launchers owner={{user}} group={{user}} mode=0644
+    with_items:
+    - nautilus
+    - spotify
+    - trash
+
+  - name: Update Plank theme
+    command: dconf write /net/launchpad/plank/docks/dock1/theme "'Transparent'"
+    become: "{{user}}"
+
+  - name: Update Plank items
+    command: dconf write /net/launchpad/plank/docks/dock1/dock-items  "['nautilus.dockitem', 'firefox.dockitem', 'spotify.dockitem', 'cpumonitor.dockitem', 'clock.dockitem', 'trash.dockitem']"
+    become: "{{user}}"
+
+  - name: Remove default Plank items
+    file:  path=/home/{{user}}/.config/plank/dock1/launchers/{{item}}.dockitem state=absent
+    with_items:
+    - eog
+    - org.gnome.Calendar
+    - org.gnome.Totem
+    - rhythmbox

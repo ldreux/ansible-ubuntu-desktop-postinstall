@@ -6,16 +6,17 @@
   vars_files:
   - vars/main.yml
   roles:
-  - application-base
-  - ohmyzsh
-  - mrlesmithjr.oracle-java8
-  - guake
-  - fonts
+#  - application-base
+#  - ohmyzsh
+#  - mrlesmithjr.oracle-java8
+#  - guake
+#  - fonts
   - themes
-  - synapse
-  - variety
-  - firefox-arc-theme
-  - nodejs
-  - locale-fr
-  - dropbox
-  - virtualbox
+#  - synapse
+#  - variety
+#  - firefox-arc-theme
+#  - nodejs
+#  - locale-fr
+#  - dropbox
+#  - virtualbox
+#  - spotify
