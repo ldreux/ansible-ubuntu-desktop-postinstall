@@ -34,3 +34,6 @@
   template:
     src: postman.desktop
     dest: /home/{{user}}/.local/share/applications
+    mode: 0755
+    owner: "{{user}}"
+    group: "{{user}}"

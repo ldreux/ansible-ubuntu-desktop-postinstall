@@ -1,0 +1,48 @@
+---
+
+- name: Check if IntelliJ Idea is installed
+  stat:
+    path: "/home/{{user}}/Workspace/Software/idea"
+  register: idea
+
+- name: Check if IntelliJ Idea is download
+  stat:
+    path: "/tmp/ideaIU.tar.gz"
+  register: ideaarchive
+
+- name: Create Software directory
+  file: path=/home/{{user}}/Workspace/Software/ state=directory owner={{user}}
+
+- name: Download IntelliJ Idea
+  get_url:
+    url: https://download.jetbrains.com/idea/ideaIU-2017.1.4.tar.gz
+    dest: "/tmp/ideaIU.tar.gz"
+  when: ideaarchive.stat.exists is not defined or ideaarchive.stat.exists == False
+  become: "{{user}}"
+
+- name: Install IntelliJ Idea
+  unarchive:
+    src: "/tmp/ideaIU.tar.gz"
+    dest: "/home/{{user}}/Workspace/Software/"
+  when: idea.stat.exists is not defined or idea.stat.exists == False
+  become: "{{user}}"
+
+- name: Rename IntellJ Idea installation
+  shell: /bin/bash -c "mv /home/{{user}}/Workspace/Software/idea-IU-* /home/{{user}}/Workspace/Software/idea"
+  when: idea.stat.exists is not defined or idea.stat.exists == False
+  become: "{{user}}"
+
+- name: Check application folder
+  file: path=/home/{{user}}/.local/share/applications state=directory owner={{user}}
+
+- name: Install IntelliJ Idea shortcut
+  template:
+    src: jetbrains-idea.desktop
+    dest: /home/{{user}}/.local/share/applications
+    mode: 0755
+    owner: "{{user}}"
+    group: "{{user}}"
+
+
+- name: Install Plank items
+  template: src=jetbrains-idea.dockitem dest=/home/{{user}}/.config/plank/dock1/launchers owner={{user}} group={{user}} mode=0644
