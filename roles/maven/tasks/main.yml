@@ -1,0 +1,36 @@
+---
+
+- name: Check if maven is installed
+  stat:
+    path: "/home/{{user}}/Workspace/Software/apache-maven-3.5.0"
+  register: maven
+
+- name: Check if maven is download
+  stat:
+    path: "/tmp/maven.tar.gz"
+  register: mavenarchive
+
+- name: Create sofware directory
+  file: path=/home/{{user}}/Workspace/Software/ state=directory owner={{user}}
+
+- name: Download maven
+  get_url:
+    url: http://apache.mindstudios.com/maven/maven-3/3.5.0/binaries/apache-maven-3.5.0-bin.tar.gz
+    dest: "/tmp/maven.tar.gz"
+  when: mavenarchive.stat.exists is not defined or mavenarchive.stat.exists == False
+  become: "{{user}}"
+
+- name: Install maven
+  unarchive:
+    src: "/tmp/maven.tar.gz"
+    dest: "/home/{{user}}/Workspace/Software/"
+  when: maven.stat.exists is not defined or maven.stat.exists == False
+  become: "{{user}}"
+
+- name: Add maven to home
+  lineinfile:
+    dest: /home/{{user}}/.zshrc
+    state: present
+    regexp: apache-maven-3.5.0/bin
+    line: "PATH=$PATH:/home/{{user}}/Workspace/Software/apache-maven-3.5.0/bin"
+  become: "{{user}}"
