@@ -44,3 +44,7 @@ source $ZSH/oh-my-zsh.sh
 export PATH=/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+        source /etc/profile.d/vte.sh
+fi

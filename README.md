@@ -3,5 +3,5 @@
 ## Provisionning a new machine
 
 ````
-ansible-playbook -i localhost.inventory desktop-install.yml  -K
+git clone
 ````

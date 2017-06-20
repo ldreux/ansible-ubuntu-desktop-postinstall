@@ -1,0 +1,7 @@
+---
+  - name: Add Tilix repository
+    apt_repository:
+      repo: 'ppa:webupd8team/terminix'
+
+  - name: Install Tilix
+    apt: name=terminix state=installed
