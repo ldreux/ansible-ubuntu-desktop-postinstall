@@ -1,0 +1,11 @@
+---
+  - name: Add Hardcode tray repository
+    apt_repository: repo=ppa:andreas-angerer89/sni-qt-patched
+
+  - name: Install Hardcode tray
+    apt: name={{item}} state=installed
+    with_items:
+    - sni-qt
+    - sni-qt:i386
+    - hardcode-tray
+

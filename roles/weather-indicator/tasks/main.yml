@@ -1,0 +1,13 @@
+---
+  - name: Add Weather Indicator repository
+    apt_repository: repo=ppa:atareao/atareao
+
+  - name: Install Weather Indicator
+    apt: name=my-weather-indicator state=installed
+
+  - name: Autostart Weather Indicator
+    file:
+      src: /usr/share/applications/extras-my-weather-indicator.desktop
+      dest: /home/{{user}}/.config/autostart/my-weather-indicator.desktop
+      state: link
+      owner: "{{user}}"
