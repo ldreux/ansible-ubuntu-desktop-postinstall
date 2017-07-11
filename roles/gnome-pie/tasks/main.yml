@@ -1,0 +1,21 @@
+---
+  - name: Add Gnome Pie Repository
+    apt_repository:
+      repo: 'ppa:simonschneegans/testing'
+
+  - name: Install Gnome Pie
+    apt: name=gnome-pie state=installed
+
+  - name: Create autostart folder
+    file:
+      path: /home/{{user}}/.config/autostart/
+      state: directory
+      mode: 0755
+      owner: "{{user}}"
+
+  - name: Autostart Gnome Pie
+    file:
+      src: /usr/share/applications/gnome-pie.desktop
+      dest: /home/{{user}}/.config/autostart/gnome-pie.desktop
+      state: link
+      owner: "{{user}}"
